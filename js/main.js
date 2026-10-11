@@ -14,6 +14,34 @@ const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (play && play.catch) play.catch(() => { /* autoplay blocked; poster stays visible */ });
 })();
 
+/* ---------- 0b. Mobile navigation toggle ---------- */
+(function () {
+  const toggle = document.getElementById('menuToggle');
+  const links = document.getElementById('links');
+  if (!toggle || !links) return;
+
+  const setOpen = (open) => {
+    links.classList.toggle('open', open);
+    toggle.setAttribute('aria-expanded', String(open));
+    toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    document.body.classList.toggle('menu-open', open);
+  };
+
+  toggle.addEventListener('click', (e) => {
+    e.stopPropagation();
+    setOpen(!links.classList.contains('open'));
+  });
+  // close the menu after picking a link
+  links.addEventListener('click', (e) => { if (e.target.closest('a')) setOpen(false); });
+  // close when tapping anywhere outside the menu
+  document.addEventListener('click', (e) => {
+    if (!links.contains(e.target) && !toggle.contains(e.target)) setOpen(false);
+  });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') setOpen(false); });
+  // reset the state when the screen grows past the mobile breakpoint
+  matchMedia('(min-width: 861px)').addEventListener('change', (e) => { if (e.matches) setOpen(false); });
+})();
+
 /* ---------- 1. Mouse-reactive particle background ---------- */
 (function () {
   const canvas = document.getElementById('bg');
