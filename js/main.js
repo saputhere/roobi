@@ -205,5 +205,5 @@ document.querySelectorAll('.card').forEach((card) => {
   const fab = document.getElementById('aiFab');
   if (fab) fab.addEventListener('click', () => setTimeout(() => input.focus({ preventScroll: true }), 700));
 
-  addMsg('bot', "Hi! I'm Roobi AI. Ask me about Sapumal's projects, skills, experience, or CI/CD. You can also describe a project you need, and I'll draft a short brief.");
+  addMsg('bot', "Hi! I'm Roobi AI. Ask me about Sapumal's projects, skills, or experience. You can also describe a project you need, and I'll draft a short brief.");
 })();
