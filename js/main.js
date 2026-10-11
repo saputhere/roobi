@@ -115,9 +115,9 @@ document.querySelectorAll('.card').forEach((card) => {
   });
 });
 
-/* ---------- 3. Typewriter: "a Innovator" ---------- */
+/* ---------- 3. Typewriter: "Innovator" ---------- */
 (function () {
-  const word = 'a Innovator';
+  const word = 'Innovator';
   const el = document.getElementById('typed');
   if (!el) return;
   if (reduceMotion) { el.textContent = word; return; }
