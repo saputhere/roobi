@@ -115,9 +115,9 @@ document.querySelectorAll('.card').forEach((card) => {
   });
 });
 
-/* ---------- 3. Typewriter: "Innovator" ---------- */
+/* ---------- 3. Typewriter: "a Innovator" ---------- */
 (function () {
-  const word = 'Innovator';
+  const word = 'a Innovator';
   const el = document.getElementById('typed');
   if (!el) return;
   if (reduceMotion) { el.textContent = word; return; }
@@ -206,4 +206,28 @@ document.querySelectorAll('.card').forEach((card) => {
   if (fab) fab.addEventListener('click', () => setTimeout(() => input.focus({ preventScroll: true }), 700));
 
   addMsg('bot', "Hi! I'm Roobi AI. Ask me about Sapumal's projects, skills, or experience. You can also describe a project you need, and I'll draft a short brief.");
+})();
+
+/* ---------- 6. Block right-click and common developer shortcuts ---------- */
+(function () {
+  // Right-click menu (including "Inspect")
+  document.addEventListener('contextmenu', (e) => e.preventDefault());
+
+  // Keyboard shortcuts: F12, Ctrl/Cmd+Shift+I/J/C, Ctrl/Cmd+U (view source), Ctrl/Cmd+S (save page)
+  document.addEventListener('keydown', (e) => {
+    const k = (e.key || '').toLowerCase();
+    const mod = e.ctrlKey || e.metaKey;
+    if (
+      e.key === 'F12' ||
+      (mod && e.shiftKey && ['i', 'j', 'c'].includes(k)) ||
+      (mod && ['u', 's'].includes(k))
+    ) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+  }, true);
+
+  // Stop drag-and-drop of images and text selection copying of the page
+  document.addEventListener('dragstart', (e) => e.preventDefault());
+  document.addEventListener('copy', (e) => e.preventDefault());
 })();
