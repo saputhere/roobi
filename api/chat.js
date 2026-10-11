@@ -1,5 +1,5 @@
-// api/chat.js — Vercel serverless function (free tier), powered by Google Gemini
-const MODEL = 'gemini-2.5-flash';
+// Models are tried in order. If one is unavailable or over quota, the next one is used.
+const MODELS = ['gemini-2.5-flash', 'gemini-2.5-flash-lite', 'gemini-2.0-flash'];
 
 const PROFILE = `You are "Roobi AI", a friendly assistant on Sapumal "Roobi" Wijesinghe's personal website.
 Answer ONLY using the facts below. If something is not covered, say so and suggest contacting Sapumal.
@@ -9,7 +9,7 @@ PROJECT BRIEF MODE: If a visitor describes a business problem or project they ne
 then draft a short project brief (goal, key features, suggested tech, rough timeline) and mention which of Sapumal's past projects are similar.
 
 FACTS:
-- Name: Sapumal "Roobi" Wijesinghe. Innovator, Software Engineer and Full-Stack Developer. Available for new builds.
+- Name: Sapumal Wijesinghe. Innovator, Software Engineer and Full-Stack Developer. Available for new builds.
 - Skills: C#, .NET, ASP.NET Core, Blazor, PHP, JavaScript, HTML5, CSS3, Python, REST APIs; Power Platform, Power Apps, Power Automate, Power BI, SharePoint, Azure; SQL Server, MySQL, Git, CI/CD; AI Automation, IoT; Figma, Adobe Photoshop, Adobe Illustrator, CorelDRAW; Premiere Pro, After Effects, Blender, video editing; Cubase, Adobe Audition, audio engineering, voice over.
 - Projects: Image to Base64 Converter (browser-based developer tool, github.com/saputhere/base64covertor); Printfactory API Printing Solution; SharePoint Migration Tool; Cascada ERP Solution; POS System; Shopflow System (Power Apps for the RMW to FGW process); Digital Workflow Automation Suite (Power Apps/Automate/SharePoint for a multi-site manufacturing operation); SecureNet Client Portal (C#/.NET, audit logging, 2FA, JWT); MediaCore CMS (PHP/MySQL for a broadcast media house); Insight Dashboard (Power BI/Fabric plant analytics).
 - Education: PL-900 Microsoft Certified (2026); BSc Software Engineering, ESOFT Metro Campus (2023); Advanced Certificate in Cyber Security and Ethical Hacking, University of Kelaniya (2022); Advanced Certificate in Industrial Engineering, AIMS (2022); HND Computer Science, IIAC Sri Lanka (2015-2017).
@@ -24,7 +24,7 @@ module.exports = async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
 
   const key = process.env.GEMINI_API_KEY;
-  if (!key) return res.status(500).json({ error: 'AI is not configured yet.' });
+  if (!key) return res.status(500).json({ error: 'AI is not configured yet. Add GEMINI_API_KEY in Vercel and redeploy.' });
 
   const ip = (req.headers['x-forwarded-for'] || '').split(',')[0].trim() || 'unknown';
   const now = Date.now();
@@ -48,26 +48,37 @@ module.exports = async function handler(req, res) {
     return res.status(400).json({ error: 'No question found.' });
   }
 
-  try {
-    const r = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'x-goog-api-key': key },
-      body: JSON.stringify({
-        systemInstruction: { parts: [{ text: PROFILE }] },
-        contents,
-        generationConfig: { temperature: 0.6, maxOutputTokens: 700 },
-      }),
-    });
-    const data = await r.json();
-    if (!r.ok) {
-      console.error('Gemini error:', data);
-      return res.status(502).json({ error: 'The AI service is busy. Please try again.' });
+  let lastError = 'unknown error';
+
+  for (const model of MODELS) {
+    try {
+      const r = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'x-goog-api-key': key },
+        body: JSON.stringify({
+          systemInstruction: { parts: [{ text: PROFILE }] },
+          contents,
+          generationConfig: { temperature: 0.6, maxOutputTokens: 700 },
+        }),
+      });
+      const data = await r.json();
+
+      if (!r.ok) {
+        lastError = `${model} (${r.status}): ${(data.error && data.error.message) || 'request rejected'}`;
+        console.error('Gemini error:', lastError);
+        // Unavailable, over quota, or overloaded: try the next model. Otherwise stop.
+        if ([404, 429, 500, 503].includes(r.status)) continue;
+        break;
+      }
+
+      const text = ((data.candidates && data.candidates[0] && data.candidates[0].content.parts) || [])
+        .map((p) => p.text || '').join('').trim();
+      return res.status(200).json({ text: text || 'Sorry, I could not answer that. Could you rephrase?' });
+    } catch (err) {
+      lastError = err.message;
+      console.error(err);
     }
-    const text = ((data.candidates && data.candidates[0] && data.candidates[0].content.parts) || [])
-      .map((p) => p.text || '').join('').trim();
-    return res.status(200).json({ text: text || 'Sorry, I could not answer that. Could you rephrase?' });
-  } catch (err) {
-    console.error(err);
-    return res.status(500).json({ error: 'Something went wrong. Please try again.' });
   }
+
+  return res.status(502).json({ error: 'AI is unavailable: ' + lastError });
 };
