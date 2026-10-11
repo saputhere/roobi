@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Sapumal Wijesinghe</title>
+  <meta name="description" content="Sapumal Wijesinghe - Innovator. Software Engineer, Full-Stack Developer and Power Platform specialist.">
+
+  <link rel="icon" href="images/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <canvas id="bg" aria-hidden="true"></canvas>
+  <div class="spot" id="spot" aria-hidden="true"></div>
+
+  <nav>
+    <div class="wrap">
+      <a class="logo" href="#home">Roobi<span>.</span></a>
+      <div class="links">
+        <a href="#about">About</a>
+        <a href="#projects">Projects</a>
+        <a href="#journey">Journey</a>
+        <a href="#skills">Skills</a>
+        <a href="#ai" id="navAi" hidden>Ask AI</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="hero" id="home">
+    <video class="hero-video" autoplay muted loop playsinline preload="auto" aria-hidden="true" poster="images/roobi.png">
+      <source src="video/roobi.mp4" type="video/mp4">
+    </video>
+    <div class="hero-overlay" aria-hidden="true"></div>
+    <div class="wrap hero-inner">
+      <span class="badge"><span class="pulse"></span> Available for new innovations</span>
+      <h1>Hi, I'm <span class="name">Sapumal</span></h1>
+      <div class="role"><span id="typed"></span><span class="caret"></span></div>
+      <div class="ctas">
+        <a class="btn primary" href="#projects">Explore my work</a>
+        <a class="btn" href="#contact">Let's talk</a>
+      </div>
+    </div>
+    <div class="scroll-hint">Scroll</div>
+  </header>
+
+  <section id="about">
+    <div class="wrap about">
+      <div class="portrait-wrap reveal">
+        <div class="portrait" id="portrait">
+          <div class="ring ring-1" aria-hidden="true"></div>
+          <div class="ring ring-2" aria-hidden="true"></div>
+          <div class="photo">
+            <img src="images/roobi.png" alt="Sapumal 'Roobi' Wijesinghe" onerror="this.parentElement.parentElement.classList.add('no-photo')">
+            <div class="shine" aria-hidden="true"></div>
+          </div>
+          <div class="mono" aria-hidden="true">SW</div>
+          <span class="chip-float chip-a">Sapumal Wijesinghe</span>
+          <span class="chip-float chip-b">Innovation Meets Intelligence</span>
+        </div>
+      </div>
+      <div class="reveal">
+        <span class="eyebrow">About</span>
+        <h2>Art, engineering & <span class="gold-text">intent.</span></h2>
+        <p>I'm <strong>Sapumal Wijesinghe</strong>, known as <strong>Roobi</strong> - an <strong>Innovative Developer</strong> passionate about building modern business solutions with technology. These days, I'm focused on the <strong>Microsoft Ecosystem</strong>, <strong>Security</strong>, and <strong>Cloud Solutions</strong>, helping businesses work smarter, faster, and more efficiently.</p>
+
+<p>I'm especially passionate about <strong>AI</strong> and <strong>automation</strong>, exploring new ways to bring intelligent technologies into everyday business processes. I enjoy working with <strong>modern technologies</strong> to build scalable, reliable, secure, and user-friendly applications that are ready for the future.</p>
+
+<p style="text-align:center; font-style: italic;"><strong>Whether it's automating a business process, developing an application, or bringing a new idea to life, I enjoy turning complex challenges into simple, practical solutions.</strong></p>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects">
+    <div class="wrap">
+      <span class="eyebrow reveal">Selected work</span>
+      <h2 class="reveal">Projects</h2>
+      <div class="projects">
+        <article class="card feature reveal">
+          <div class="cat">Developer tool · Browser-based</div>
+          <h3>Image to Base64 Converter</h3>
+          <p>A lightweight HTML web application that converts images to Base64 entirely in the browser, with no uploads, no backend and no external services required.</p>
+          <div class="tags"><span class="tag">HTML5</span><span class="tag">JavaScript</span><span class="tag">Developer tools</span></div>
+          <a class="card-link" href="https://github.com/saputhere/base64covertor" target="_blank" rel="noopener">View on GitHub →</a>
+        </article>
+        <article class="card reveal">
+          <div class="cat">API · Printing</div>
+          <h3>Printfactory API Printing Solution</h3>
+          <p>An API-driven printing solution that connects business systems to print workflows.</p>
+          <div class="tags"><span class="tag">REST APIs</span><span class="tag">C# / .NET</span></div>
+        </article>
+        <article class="card reveal">
+          <div class="cat">Microsoft · SharePoint</div>
+          <h3>SharePoint Migration Tool</h3>
+          <p>A tool for moving content and data into SharePoint as part of a structured migration.</p>
+          <div class="tags"><span class="tag">SharePoint</span><span class="tag">Power Automate</span><span class="tag">Azure</span></div>
+        </article>
+        <article class="card reveal">
+          <div class="cat">Enterprise · ERP</div>
+          <h3>Cascada ERP Solution</h3>
+          <p>An enterprise resource planning solution built to organise core business operations in one system.</p>
+          <div class="tags"><span class="tag">C# / .NET</span><span class="tag">SQL Server</span></div>
+        </article>
+        <article class="card reveal">
+          <div class="cat">Retail · Point of Sale</div>
+          <h3>POS System</h3>
+          <p>A point-of-sale system for handling sales transactions and day-to-day store operations.</p>
+          <div class="tags"><span class="tag">API</span><span class="tag">SQL Server</span><span class="tag">C# / .NET</span></div>
+        </article>
+        <article class="card reveal">
+          <div class="cat">Power Apps · Workflow</div>
+          <h3>Shopflow System · RMW to FGW</h3>
+          <p>A Power Apps solution for the RMW to FGW process within the Shopflow system.</p>
+          <div class="tags"><span class="tag">Power Apps</span><span class="tag">Power Automate</span><span class="tag">SharePoint</span></div>
+        </article>
+        <article class="card reveal">
+          <div class="cat">Power Platform · SharePoint</div>
+          <h3>Digital Workflow Automation Suite</h3>
+          <p>End-to-end approval and reporting flows built on Power Apps, Power Automate and SharePoint, replacing manual paperwork across a multi-site manufacturing operation.</p>
+          <div class="tags"><span class="tag">Power Apps</span><span class="tag">Power Automate</span><span class="tag">Power BI</span></div>
+        </article>
+        <article class="card reveal">
+          <div class="cat">C# · .NET · Security</div>
+          <h3>SecureNet Client Portal</h3>
+          <p>A role-based client portal hardened against common attack vectors, with audit logging and two-factor authentication built in from the first commit.</p>
+          <div class="tags"><span class="tag">C# / .NET</span><span class="tag">SQL Server</span><span class="tag">JWT Auth</span></div>
+        </article>
+        <article class="card reveal">
+          <div class="cat">PHP · JavaScript</div>
+          <h3>MediaCore CMS</h3>
+          <p>A lightweight content management system built for a broadcast media house, handling scheduling, versioned articles and a custom media library.</p>
+          <div class="tags"><span class="tag">PHP</span><span class="tag">MySQL</span><span class="tag">Vanilla JS</span></div>
+        </article>
+        <article class="card reveal">
+          <div class="cat">Power BI · Fabric</div>
+          <h3>Insight Dashboard</h3>
+          <p>A live analytics dashboard consolidating production, quality and workforce data into a single view for plant-level decisions.</p>
+          <div class="tags"><span class="tag">Power BI</span><span class="tag">Fabric</span><span class="tag">DAX</span></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="ai" hidden>
+    <div class="wrap ai-wrap">
+      <div class="reveal">
+        <span class="eyebrow">Try it</span>
+        <h2>Ask <span class="gold-text">Roobi AI</span></h2>
+        <p class="lead">Curious about Sapumal's projects, stack or experience? Ask the assistant. It answers from his profile and points you to the right contact for anything else.</p>
+      </div>
+      <div class="ai-box reveal">
+        <div class="ai-head">Roobi AI <span class="pulse"></span></div>
+        <div class="ai-log" id="log" aria-live="polite"></div>
+        <div class="chips">
+          <button class="chip" type="button" data-q="What kind of projects has Roobi built?">Projects</button>
+          <button class="chip" type="button" data-q="What is Roobi's tech stack?">Tech stack</button>
+          <button class="chip" type="button" data-q="Does Roobi know CI/CD?">CI/CD</button>
+          <button class="chip" type="button" data-q="How can I hire or contact Roobi?">Hire Roobi</button>
+        </div>
+        <form class="ai-form" id="form" autocomplete="off">
+          <input id="q" placeholder="Ask about Sapumal's experience…" maxlength="500" required>
+          <button class="btn primary" id="send" type="submit">Ask</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <section id="journey">
+    <div class="wrap journey">
+      <div class="reveal">
+        <span class="eyebrow">Journey</span>
+        <h2 class="sub-title">Experience</h2>
+        <div class="timeline">
+          <div class="tl-item"><div class="when">2024 — Present</div><h4>Associate Power Platform Engineer</h4><div class="org">TechOne Global Pvt. Ltd</div><p>Power Apps, Power BI, Power Automate, SharePoint, SQL Server, MySQL, SSRS, SSMS and API integrations.</p></div>
+          <div class="tl-item"><div class="when">2022 — 2024</div><h4>Digital Evangelist</h4><div class="org">MAS Holdings (Silueta)</div><p>Department of Digitalization. Power BI, Fabric, Power Apps, Power Automate and SharePoint.</p></div>
+          <div class="tl-item"><div class="when">2019 — 2021</div><h4>Executive</h4><div class="org">Ceylon Mines and Minerals Holdings</div></div>
+          <div class="tl-item"><div class="when">2015 — 2022</div><h4>Software Engineer</h4><div class="org">Capital Media Core · Anuradhapura</div><p>C#, .NET, PHP and JavaScript development.</p></div>
+          <div class="tl-item"><div class="when">2014 — Present</div><h4>ICT Instructor & Lecturer</h4><div class="org">Nenasala Computer Education Centres</div></div>
+          <div class="tl-item"><div class="when">2013 — 2014</div><h4>Editor / Presenter</h4><div class="org">Shraddha Media Network</div><p>Presenting and audio-video editing.</p></div>
+        </div>
+      </div>
+      <div class="reveal">
+        <span class="eyebrow">Education</span>
+        <h2 class="sub-title">Education</h2>
+        <div class="timeline">
+          <div class="tl-item"><div class="when">2026</div><h4>PL-900 · Microsoft Certified</h4><p>Power Platform Fundamentals (PL-900), demonstrating foundational knowledge of Power Apps, Power Automate, Power BI and Power Platform solutions.</p></div>
+          <div class="tl-item"><div class="when">2023</div><h4>BSc Software Engineering</h4><div class="org">ESOFT · Metro Campus, Sri Lanka</div><p>Following the BSc in Software Engineering at ESOFT Metro Campus.</p></div>
+          <div class="tl-item"><div class="when">2022</div><h4>Advanced Certificate · Cyber Security & Ethical Hacking</h4><div class="org">University of Kelaniya</div><p>Securing digital environments and understanding hacking methodologies.</p></div>
+          <div class="tl-item"><div class="when">2022</div><h4>Advanced Certificate · Industrial Engineering</h4><div class="org">Apex Institute of Management Service (AIMS), Sri Lanka</div><p>Designing and developing industrial requirements and applying best practices.</p></div>
+          <div class="tl-item"><div class="when">2015 — 2017</div><h4>HND Computer Science</h4><div class="org">IIAC, Sri Lanka</div><p>Specialised in software engineering and web development.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="skills">
+    <div class="wrap">
+      <span class="eyebrow reveal">Skills</span>
+      <h2 class="reveal">Toolbox</h2>
+      <div class="skills">
+        <div class="card reveal">
+          <div class="cat">Software development</div>
+          <div class="skill-group">
+            <span class="skill">C#</span><span class="skill">.NET</span><span class="skill">ASP.NET Core</span><span class="skill">Blazor</span><span class="skill">PHP</span><span class="skill">JavaScript</span><span class="skill">HTML5</span><span class="skill">CSS3</span><span class="skill">Python</span><span class="skill">REST APIs</span>
+          </div>
+        </div>
+        <div class="card reveal">
+          <div class="cat">Microsoft ecosystem</div>
+          <div class="skill-group">
+            <span class="skill">Power Platform</span><span class="skill">Power Apps</span><span class="skill">Power Automate</span><span class="skill">Power BI</span><span class="skill">SharePoint</span><span class="skill">Azure</span>
+          </div>
+        </div>
+        <div class="card reveal">
+          <div class="cat">Database & version control</div>
+          <div class="skill-group">
+            <span class="skill">SQL Server</span><span class="skill">MySQL</span><span class="skill">Git</span><span class="skill">CI/CD</span>
+          </div>
+        </div>
+        <div class="card reveal">
+          <div class="cat">AI & emerging technologies</div>
+          <div class="skill-group">
+            <span class="skill">AI Automation</span><span class="skill">IoT</span>
+          </div>
+        </div>
+        <div class="card reveal">
+          <div class="cat">UI / UX & graphic design</div>
+          <div class="skill-group">
+            <span class="skill">Figma</span><span class="skill">Adobe Photoshop</span><span class="skill">Adobe Illustrator</span><span class="skill">CorelDRAW</span>
+          </div>
+        </div>
+        <div class="card reveal">
+          <div class="cat">Video, motion & audio</div>
+          <div class="skill-group">
+            <span class="skill">Premiere Pro</span><span class="skill">After Effects</span><span class="skill">Blender</span><span class="skill">Video Editing</span><span class="skill">Cubase</span><span class="skill">Adobe Audition</span><span class="skill">Audio Engineering</span><span class="skill">Voice Over</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="cicd reveal">
+        <span class="eyebrow">Delivery</span>
+        <h3>CI/CD pipelines</h3>
+        <p>Automated, repeatable delivery from commit to production, so releases ship faster and break less.</p>
+        <div class="pipeline">
+          <div class="stage"><div class="n">01</div><div class="t">Commit</div><div class="d">Version control with Git</div></div>
+          <span class="arrow">→</span>
+          <div class="stage"><div class="n">02</div><div class="t">Build</div><div class="d">Compile and package automatically</div></div>
+          <span class="arrow">→</span>
+          <div class="stage"><div class="n">03</div><div class="t">Test</div><div class="d">Automated checks on every change</div></div>
+          <span class="arrow">→</span>
+          <div class="stage"><div class="n">04</div><div class="t">Deploy</div><div class="d">Release to Azure or SharePoint</div></div>
+          <span class="arrow">→</span>
+          <div class="stage"><div class="n">05</div><div class="t">Monitor</div><div class="d">Feedback loop back to development</div></div>
+        </div>
+        <div class="tags">
+          <span class="tag">Git</span><span class="tag">Automated builds</span><span class="tag">Azure</span><span class="tag">Power Platform ALM</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="wrap">
+      <span class="eyebrow reveal">Contact</span>
+      <div class="big-cta reveal">Let's build something <span class="gold-text">extraordinary.</span></div>
+      <div class="contact-grid reveal">
+        <a href="tel:+94777243309"><div class="card"><div class="label">Call</div><div class="value">+94 777 243 309</div></div></a>
+        <a href="https://www.linkedin.com/in/sapumalwi" target="_blank" rel="noopener"><div class="card"><div class="label">LinkedIn</div><div class="value">/in/sapumalwi</div></div></a>
+        <a href="https://www.facebook.com/roobi.sapumal" target="_blank" rel="noopener"><div class="card"><div class="label">Facebook</div><div class="value">roobi.sapumal</div></div></a>
+        <a href="https://github.com/saputhere" target="_blank" rel="noopener"><div class="card"><div class="label">GitHub</div><div class="value">saputhere</div></div></a>
+      </div>
+    </div>
+  </section>
+
+  <footer>© 2026 Sapumal Wijesinghe · Innovator</footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
