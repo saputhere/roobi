@@ -141,30 +141,15 @@ document.querySelectorAll('.card').forEach((card) => {
   document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
 })();
 
-/* ---------- 5. Roobi AI (only when hosted in Claude, where window.claude exists) ---------- */
-const PROFILE = `You are "Roobi AI", a friendly assistant on Sapumal "Roobi" Wijesinghe's personal website.
-Answer ONLY using the facts below. If something is not covered, say so and suggest contacting Sapumal.
-Keep answers short (2-4 sentences). Speak about Sapumal in the third person.
-
-FACTS:
-- Name: Sapumal "Roobi" Wijesinghe. Innovator, Software Engineer and Full-Stack Developer. Available for new builds.
-- Skills: C#, .NET, ASP.NET Core, Blazor, PHP, JavaScript, HTML5, CSS3, Python, REST APIs; Power Platform, Power Apps, Power Automate, Power BI, SharePoint, Azure; SQL Server, MySQL, Git, CI/CD; AI Automation, IoT; Figma, Adobe Photoshop, Adobe Illustrator, CorelDRAW; Premiere Pro, After Effects, Blender, video editing; Cubase, Adobe Audition, audio engineering, voice over.
-- Projects: Image to Base64 Converter (browser-based developer tool, github.com/saputhere/base64covertor); Printfactory API Printing Solution; SharePoint Migration Tool; Cascada ERP Solution; POS System; Shopflow System (Power Apps for the RMW to FGW process); Digital Workflow Automation Suite (Power Apps/Automate/SharePoint for a multi-site manufacturing operation); SecureNet Client Portal (C#/.NET, audit logging, 2FA, JWT); MediaCore CMS (PHP/MySQL for a broadcast media house); Insight Dashboard (Power BI/Fabric plant analytics).
-- Education: PL-900 Microsoft Certified (2026); BSc Software Engineering, ESOFT Metro Campus (2023); Advanced Certificate in Cyber Security and Ethical Hacking, University of Kelaniya (2022); Advanced Certificate in Industrial Engineering, AIMS (2022); HND Computer Science, IIAC Sri Lanka (2015-2017).
-- Experience: Associate Power Platform Engineer, TechOne Global (2024-present); Digital Evangelist, MAS Holdings (2022-2024); Executive, Ceylon Mines and Minerals Holdings (2019-2021); Software Engineer, Capital Media Core (2015-2022); ICT Instructor & Lecturer, Nenasala Computer Education Centres (2014-present); Editor/Presenter, Shraddha Media Network (2013-2014).
-- Contact: phone +94 777 243 309; LinkedIn linkedin.com/in/sapumalwi; Facebook facebook.com/roobi.sapumal; GitHub github.com/saputhere.`;
-
+/* ---------- 5. Roobi AI: chat through the /api/chat serverless function ---------- */
 (function () {
-  const section = document.getElementById('ai');
-  const navLink = document.getElementById('navAi');
   const log = document.getElementById('log');
   const form = document.getElementById('form');
   const input = document.getElementById('q');
   const send = document.getElementById('send');
-  const history = [];
-  let sample = null;
+  if (!log || !form) return;
 
-  if (!section || !log || !form) return;
+  const history = [];
 
   function addMsg(role, text) {
     const d = document.createElement('div');
@@ -176,7 +161,7 @@ FACTS:
   }
 
   async function ask(q) {
-    if (!sample || !q.trim()) return;
+    if (!q.trim()) return;
     addMsg('user', q);
     history.push({ role: 'user', content: q });
 
@@ -185,22 +170,23 @@ FACTS:
     send.disabled = true;
 
     try {
-      // The API is memoryless, so send the instructions and the conversation each time.
-      const messages = [{ role: 'user', content: PROFILE + '\n\nConversation so far is below. Reply to the last user message.' }];
-      for (const m of history) messages.push(m);
-
-      const res = await sample(messages, {
-        modelTier: 'quick',
-        onText: ({ text }) => { bubble.textContent = text; log.scrollTop = log.scrollHeight; }
+      const res = await fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ messages: history }),
       });
-      const answer = (res && res.text) || bubble.textContent || 'Sorry, I could not answer that. Could you try again?';
-      bubble.textContent = answer;
-      history.push({ role: 'assistant', content: answer });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) throw new Error(data.error || 'Request failed');
+      bubble.textContent = data.text;
+      history.push({ role: 'assistant', content: data.text });
     } catch (err) {
-      bubble.textContent = 'AI answers are unavailable right now. You can reach Sapumal directly in the contact section.';
-      history.pop();
+      bubble.textContent = err.message && err.message !== 'Failed to fetch'
+        ? err.message
+        : 'AI is unavailable right now. You can reach Sapumal directly in the contact section.';
+      history.pop(); // drop the unanswered question so the next try starts clean
     } finally {
       send.disabled = false;
+      log.scrollTop = log.scrollHeight;
     }
   }
 
@@ -216,16 +202,8 @@ FACTS:
     b.addEventListener('click', () => ask(b.dataset.q));
   });
 
-  // Show the AI section only if the viewer's environment grants the Claude capability.
-  (async function () {
-    try {
-      if (!window.claude || typeof window.claude.use !== 'function') return;
-      const s = await window.claude.use('sample');
-      if (!s) return;
-      sample = s;
-      section.hidden = false;
-      if (navLink) navLink.hidden = false;
-      addMsg('bot', "Hi! I'm Roobi AI. Ask me about Sapumal's projects, skills, experience, CI/CD, or how to get in touch.");
-    } catch (e) { /* stays hidden */ }
-  })();
+  const fab = document.getElementById('aiFab');
+  if (fab) fab.addEventListener('click', () => setTimeout(() => input.focus({ preventScroll: true }), 700));
+
+  addMsg('bot', "Hi! I'm Roobi AI. Ask me about Sapumal's projects, skills, experience, or CI/CD. You can also describe a project you need, and I'll draft a short brief.");
 })();
