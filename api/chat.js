@@ -1,5 +1,7 @@
+// api/chat.js — Vercel serverless function (free tier), powered by Google Gemini
+
 // Models are tried in order. If one is unavailable or over quota, the next one is used.
-const MODELS = ['gemini-2.5-flash', 'gemini-2.5-flash-lite', 'gemini-2.0-flash'];
+const MODELS = ['gemini-3.8-flash', 'gemini-flash-latest', 'gemini-2.5-flash', 'gemini-2.5-flash-lite'];
 
 const PROFILE = `You are "Roobi AI", a friendly assistant on Sapumal "Roobi" Wijesinghe's personal website.
 Answer ONLY using the facts below. If something is not covered, say so and suggest contacting Sapumal.
